@@ -1,0 +1,5 @@
+.idea
+*.exe
+/logs
+/etc/zshop-api.yaml
+/*.db

@@ -1,0 +1,22 @@
+type CategoryRequest {
+	Page     string `form:"page"`
+	PageSize string `form:"page_size"`
+}
+
+type Categoty {
+	ID     int    `json:"id"`
+	Title  string `json:"title"`
+	Pid    int    `json:"pid"`
+	Status int    `json:"status"`
+	Sort   int    `json:"sort"`
+}
+
+type CategoryResponse {
+	List  []Categoty `json:"list"`
+	Total int        `json:"total"`
+}
+
+service zShop-api {
+	@handler CategoryHander
+	get /category(CategoryRequest) returns (CategoryResponse)
+}
