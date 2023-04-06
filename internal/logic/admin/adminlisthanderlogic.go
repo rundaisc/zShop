@@ -1,4 +1,4 @@
-package logic
+package admin
 
 import (
 	"context"
@@ -9,21 +9,21 @@ import (
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-type CategoryHanderLogic struct {
+type AdminListHanderLogic struct {
 	logx.Logger
 	ctx    context.Context
 	svcCtx *svc.ServiceContext
 }
 
-func NewCategoryHanderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *CategoryHanderLogic {
-	return &CategoryHanderLogic{
+func NewAdminListHanderLogic(ctx context.Context, svcCtx *svc.ServiceContext) *AdminListHanderLogic {
+	return &AdminListHanderLogic{
 		Logger: logx.WithContext(ctx),
 		ctx:    ctx,
 		svcCtx: svcCtx,
 	}
 }
 
-func (l *CategoryHanderLogic) CategoryHander(req *types.CategoryRequest) (resp *types.CategoryResponse, err error) {
+func (l *AdminListHanderLogic) AdminListHander(req *types.AdminListRequest) (resp *types.AdminListResponse, err error) {
 	// todo: add your logic here and delete this line
 
 	return

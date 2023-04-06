@@ -1,0 +1,60 @@
+type CategoryListRequest {
+    Page     string `form:"page"`
+    PageSize string `form:"pageSize"`
+}
+
+type Categoty {
+    Id  int `json:"id,optional"`
+    Title  string `json:"title"` //分类名称
+    Pid    int    `json:"pid"` //上级id
+    Status int    `json:"status"` //分类状态 1->开启 2->关闭
+    Sort   int    `json:"sort"` //分类排序
+}
+
+type CategoryListResponse {
+    List  []Categoty `json:"list"` //分类列表
+    Total int        `json:"total"` //总数
+}
+
+
+type CategotyCreateRequest {
+    Categoty
+}
+
+type CategotyUpdateRequest {
+    Categoty
+}
+@server(
+    jwt: Auth
+    middleware: AuthMiddleware
+    prefix: backend/api/category
+    group : category
+)
+
+service zShop-api {
+    @doc(
+        summary: "创建分类"
+    )
+    @handler CategoryCreateHander
+    post /(CategotyCreateRequest)
+
+    @doc(
+        summary: "修改分类"
+    )
+    @handler CategoryUpdateHander
+    put /:id(CategotyUpdateRequest)
+
+    @doc(
+        summary: "删除分类"
+    )
+    @handler CategoryDeleteHander
+    delete /:id
+
+    @doc(
+        summary: "分类列表"
+    )
+    @handler CategoryListHander
+    get /(CategoryListRequest) returns (CategoryListResponse)
+
+
+}

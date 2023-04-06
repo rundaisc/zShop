@@ -1,0 +1,69 @@
+type AdminListRequest {
+    Page     string `form:"page"`
+    PageSize string `form:"pageSize"`
+}
+
+type AdminBase {
+    Id  int `json:"id,optional"`
+    Nickname  string `json:"nickname"` //昵称
+    Account    string    `json:"account"` //登录账号
+    Mobile string    `json:"mobile"` //手机
+    Status   int    `json:"status"` //状态 1->可用 2->禁用
+}
+
+type Admin {
+    AdminBase
+    LoginIp  string  `json:"login_ip"` //登录ip
+    LoginAt string  `json:"login_at"` //登录时间
+    CreatedAt string  `json:"create_at"` //创建时间
+    UpdatedAt string  `json:"updated_at"` //修改时间
+}
+
+type AdminListResponse {
+    List  []Admin `json:"list"` //列表
+    Total int        `json:"total"` //总数
+}
+
+
+type AdminCreateRequest {
+    AdminBase
+}
+
+type AdminUpdateRequest {
+    AdminBase
+}
+
+@server(
+    jwt: Auth
+    middleware: AuthMiddleware
+    prefix: backend/api/admin
+    group : admin
+)
+
+service zShop-api {
+    @doc(
+        summary: "创建管理员"
+    )
+    @handler AdminCreateHander
+    post /(AdminCreateRequest)
+
+    @doc(
+        summary: "修改管理员"
+    )
+    @handler AdminUpdateHander
+    put /:id(AdminUpdateRequest)
+
+    @doc(
+        summary: "删除管理员"
+    )
+    @handler AdminDeleteHander
+    delete /:id
+
+    @doc(
+        summary: "管理员列表"
+    )
+    @handler AdminListHander
+    get /(AdminListRequest) returns (AdminListResponse)
+
+
+}

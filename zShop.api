@@ -1,22 +1,8 @@
-type CategoryRequest {
-	Page     string `form:"page"`
-	PageSize string `form:"page_size"`
-}
+info(
+	author: "daisc"
+	date:   "2023-04-06"
+	desc:   "zshop 后台接口"
+)
 
-type Categoty {
-	ID     int    `json:"id"`
-	Title  string `json:"title"`
-	Pid    int    `json:"pid"`
-	Status int    `json:"status"`
-	Sort   int    `json:"sort"`
-}
-
-type CategoryResponse {
-	List  []Categoty `json:"list"`
-	Total int        `json:"total"`
-}
-
-service zShop-api {
-	@handler CategoryHander
-	get /category(CategoryRequest) returns (CategoryResponse)
-}
+import "apis/category.api" //分类接口
+import "apis/admin.api" //管理员接口
